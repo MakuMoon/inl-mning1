@@ -1,3 +1,4 @@
+//repo: https://github.com/MakuMoon/inl-mning1
 import java.util.Scanner;
 
 public class Greenest {
