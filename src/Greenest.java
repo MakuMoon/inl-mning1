@@ -40,7 +40,10 @@ public class Greenest {
             System.out.println(plantMeatloaf.toString());
         } else if (plantOlof.getName().equals(plant)) {
             System.out.println(plantOlof.toString());
-        } else {
+        }else if (plant.equals("Exit")) {
+            System.exit(0);
+        } 
+        else {
             System.out.println("Växten finns inte.");
         }
 
