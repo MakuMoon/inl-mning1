@@ -1,4 +1,6 @@
+
 //repo: https://github.com/MakuMoon/inl-mning1
+//updated version of the previous assignment from feedback - added list of plants to remove hardcoding
 import java.util.Scanner;
 
 public class Greenest {
@@ -9,6 +11,7 @@ public class Greenest {
     private IPlant plantLaura = new Palm("Laura", 5);
     private IPlant plantMeatloaf = new Carnivorous("Meatloaf", 0.7);
     private IPlant plantOlof = new Palm("Olof", 1);
+    private IPlant[] plants = { plantIgge, plantLaura, plantMeatloaf, plantOlof };
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -25,6 +28,7 @@ public class Greenest {
 
     public void start() {
 
+        boolean foundPlant = false;
         String plant = dialogGetPlant();
 
         System.out.print("\033[H\033[2J");
@@ -33,19 +37,21 @@ public class Greenest {
             plant = plant.substring(0, 1).toUpperCase() + plant.substring(1).toLowerCase().trim();
         }
 
-        if (plantIgge.getName().equals(plant)) {
-            System.out.println(plantIgge.toString());
-        } else if (plantLaura.getName().equals(plant)) {
-            System.out.println(plantLaura.toString());
-        } else if (plantMeatloaf.getName().equals(plant)) {
-            System.out.println(plantMeatloaf.toString());
-        } else if (plantOlof.getName().equals(plant)) {
-            System.out.println(plantOlof.toString());
-        }else if (plant.equals("Exit")) {
-            System.exit(0);
-        } 
-        else {
+
+        for (IPlant p : plants) {
+            if (p.getName().equals(plant)) {
+                System.out.println(p.toString());
+                foundPlant = true;
+                break;
+            }
+
+            else if (plant.equals("Exit")) {
+                System.exit(0);
+            }
+        }
+        if (foundPlant == false) {
             System.out.println("Växten finns inte.");
+            
         }
 
         System.out.println("\nPress enter to continue...");
@@ -54,7 +60,15 @@ public class Greenest {
     }
 
     private String dialogGetPlant() {
-        System.out.println("(Igge, Laura, Meatloaf, Olof)");
+        System.out.print("(");
+        for (IPlant p : plants) {
+            System.out.print(p.getName());
+            if (p != plants[plants.length - 1]) {
+                System.out.print(", ");
+
+            }
+        }
+        System.out.println(")");
         System.out.print("Vilken växt ska få vätska: ");
         return scanner.nextLine();
     }
